@@ -4,11 +4,16 @@ class build-couchdb::build {
        unless => '/usr/bin/test -d ${build-couchdb::install_dir}/build-couchdb',
    }
 
-   exec { "install packages git-core make gcc zlib1g-dev libssl-dev rake":
-       command => "sudo apt-get install git-core make gcc zlib1g-dev libssl-dev rake -y --force-yes",
-       path    => [ "/usr/local/bin/", "/bin/", "/usr/bin/" ],
-       cwd     => "/var/tmp",
-       unless  => "/usr/bin/test -f ${build-couchdb::install_dir}/build-couchdb/build/bin/couchdb"
+   # exec { "install packages git-core make gcc zlib1g-dev libssl-dev rake":
+   #     command => "sudo apt-get install git-core make gcc zlib1g-dev libssl-dev rake -y --force-yes",
+   #     path    => [ "/usr/local/bin/", "/bin/", "/usr/bin/" ],
+   #     cwd     => "/var/tmp"
+   # }
+
+   notice("install packages git-core make gcc zlib1g-dev libssl-dev rake")
+   package {
+       ['git-core', 'make', 'gcc', 'zlib1g-dev', 'libssl-dev', 'rake']:
+       ensure => 'installed'
    }
 
    if !("/usr/bin/test -f ${build-couchdb::install_dir}/build-couchdb/build/bin/couchdb") {
@@ -21,7 +26,7 @@ class build-couchdb::build {
        cwd     => $build-couchdb::install_dir,
        creates => "${build-couchdb::install_dir}/build-couchdb/build/bin/couchdb",
        refreshonly => true,
-       subscribe => Exec["install packages git-core make gcc zlib1g-dev libssl-dev rake"],
+       require => Package['git-core', 'make', 'gcc', 'zlib1g-dev', 'libssl-dev', 'rake'],
        user    => "${build-couchdb::build_user}",
        timeout => "0"
    }
