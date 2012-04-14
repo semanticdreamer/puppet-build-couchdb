@@ -8,6 +8,7 @@ class build-couchdb::adminparty {
                cwd      => "${build-couchdb::install_dir}/build-couchdb",
                creates  => "${build-couchdb::install_dir}/build-couchdb/admins_${build-couchdb::admin_user}_created",
                unless   => "/usr/bin/test -f ${build-couchdb::install_dir}/build-couchdb/admins_${build-couchdb::admin_user}_created",
+               user    => "${build-couchdb::build_user}",
                require  => Service["couchdb"]
             }
         }
