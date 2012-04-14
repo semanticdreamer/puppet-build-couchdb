@@ -9,20 +9,13 @@ class build-couchdb::daemon {
                subscribe => Exec["build couchdb"]
             }
             
-            file {
-                '/etc/init.d/couchdb':
-                ensure  => 'link',
-                target  => '${build-couchdb::install_dir}/build-couchdb/build/etc/init.d/couchdb',
-                require => Exec['install daemon']
-            }
-            
             service {
                 'couchdb':
                 ensure      => running,
                 hasstatus   => true,
                 hasrestart  => true,
                 enable      => true,
-                require     => File['/etc/init.d/couchdb'];
+                require => Exec['install daemon']
             }
         }
     }
