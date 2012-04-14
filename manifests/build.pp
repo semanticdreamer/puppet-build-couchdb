@@ -31,7 +31,7 @@ class build-couchdb::build {
    exec { "set COUCHDB_USER":
        command  => "sed -i 's/COUCHDB_USER=couchdb)/COUCHDB_USER=${build-couchdb::build_user}/' ${build-couchdb::install_dir}/build-couchdb/build/etc/default/couchdb",
        path     => [ "/bin/" ],
-       onlyif => "/bin/grep -qFx 'COUCHDB_USER=couchdb'",
+       onlyif => "/bin/grep -qFx 'COUCHDB_USER=couchdb' ${build-couchdb::install_dir}/build-couchdb/build/etc/default/couchdb",
        subscribe => Exec["build couchdb"]
    }
 
