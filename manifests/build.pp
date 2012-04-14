@@ -4,12 +4,6 @@ class build-couchdb::build {
        unless => '/usr/bin/test -d ${build-couchdb::install_dir}/build-couchdb',
    }
 
-   # exec { "install packages git-core make gcc zlib1g-dev libssl-dev rake":
-   #     command => "sudo apt-get install git-core make gcc zlib1g-dev libssl-dev rake -y --force-yes",
-   #     path    => [ "/usr/local/bin/", "/bin/", "/usr/bin/" ],
-   #     cwd     => "/var/tmp"
-   # }
-
    notice("install packages git-core make gcc zlib1g-dev libssl-dev rake")
    package {
        ['git-core', 'make', 'gcc', 'zlib1g-dev', 'libssl-dev', 'rake']:
