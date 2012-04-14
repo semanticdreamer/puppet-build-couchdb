@@ -6,8 +6,8 @@ class build-couchdb($install_dir = '/home/vagrant',
                     $admin_pwd = 'admin',
                     $daemon = true) {
 
-   include couchdb::build,
-           couchdb::daemon,
-           couchdb::adminparty
+   include build-couchdb::build,
+           build-couchdb::daemon,
+           build-couchdb::adminparty
 
 }
