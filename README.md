@@ -6,7 +6,7 @@ Intended to be used (shared) with projects using [Puppet][puppet] to provision [
 
 Tested on Vagrant box [debian-6.0.4-squeeze-server][debian-6.0.4-squeeze-server].
 
-##Installation
+##Installation - Add Puppet Module
 
 Either `git clone` this repo to a `build-couchdb` directory under your Puppet `modules/` directory:
 
@@ -16,6 +16,12 @@ Either `git clone` this repo to a `build-couchdb` directory under your Puppet `m
 
 	git submodule add git@github.com:semanticdreamer/puppet-build-couchdb.git ./puppet/modules/build-couchdb
 	git submodule init && git submodule update
+
+##Usage - Build CouchDB
+
+Add the following to your project's site manifest file (e.g. `manifests/site.pp`):
+
+    include build-couchdb
 
 ##Todo
 
