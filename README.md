@@ -23,10 +23,18 @@ Add the following to your project's site manifest file (e.g. `manifests/site.pp`
 
     include build-couchdb
 
-##Todo
+Optional, adjust module configuration to your needs by overwriting default class parameters - also in your project's site manifest file (e.g. `manifests/site.pp`)
 
-* Make release version configurable, using Puppet parameterized class.
-* Allow to run several couches side-by-side, e.g. different release versions.
+    class { "build-couchdb":
+        install_dir => '/home/vagrant',
+        couchdb_version_tag => '1.2.0',
+        build_user => 'vagrant',
+        bind_address => '0.0.0.0',
+        end_admin_party => true,
+        admin_user => 'admin',
+        admin_pwd => 'admin',
+        daemon => true
+    }
 
 ##Credits
 
