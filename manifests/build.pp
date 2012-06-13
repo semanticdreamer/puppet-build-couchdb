@@ -14,7 +14,7 @@ class build-couchdb::build {
 
    notice ("\n\nNext step - build CouchDB from source.\n\n**** This process may take some time, so please be patient and relax...! ****\n\nIn case you're curious what's going on:\n\n1) fire up 2nd terminal and have a look at the working directory '${build-couchdb::install_dir}/build-couchdb',\n\n2) 'tail -f ${build-couchdb::install_dir}/build-couchdb/rake.log' to watch rake building couchdb...\n\n")
    exec { "build couchdb":
-       command => "git clone git://github.com/iriscouch/build-couchdb && cd build-couchdb/ && git submodule init && git submodule update && sudo rake git='git://git.apache.org/couchdb.git tags/${build-couchdb::couchdb_version_tag}' install=${build-couchdb::couchdb_version_tag} && sudo chown -R ${build-couchdb::build_user}:${build-couchdb::build_user} ${build-couchdb::install_dir}/build-couchdb",
+       command => "git clone git://github.com/iriscouch/build-couchdb && cd build-couchdb/ && git submodule init && git submodule update && rake git='git://git.apache.org/couchdb.git tags/${build-couchdb::couchdb_version_tag}' install=${build-couchdb::couchdb_version_tag}",
        path    => [ "/usr/local/bin/", "/usr/local/sbin/", "/bin/", "/usr/bin/", "/usr/sbin/", "/usr/local/rvm/gems/ruby-1.9.2-p290/bin/" ],
        cwd     => $build-couchdb::install_dir,
        creates => "${build-couchdb::install_dir}/build-couchdb/build/bin/couchdb",
