@@ -4,7 +4,6 @@ class build-couchdb::build {
        unless => '/usr/bin/test -d ${build-couchdb::install_dir}/build-couchdb',
    }
 
-   notice("install packages git-core make gcc zlib1g-dev libssl-dev rake")
    if ! defined(Package['git-core'])   { package { 'git-core':   ensure => installed } }
    if ! defined(Package['make'])       { package { 'make':       ensure => installed } }
    if ! defined(Package['gcc'])        { package { 'gcc':        ensure => installed } }
@@ -12,7 +11,6 @@ class build-couchdb::build {
    if ! defined(Package['libssl-dev']) { package { 'libssl-dev': ensure => installed } }
    if ! defined(Package['rake'])       { package { 'rake':       ensure => installed } }
 
-   notice ("\n\nNext step - build CouchDB from source.\n\n**** This process may take some time, so please be patient and relax...! ****\n\nIn case you're curious what's going on:\n\n1) fire up 2nd terminal and have a look at the working directory '${build-couchdb::install_dir}/build-couchdb',\n\n2) 'tail -f ${build-couchdb::install_dir}/build-couchdb/rake.log' to watch rake building couchdb...\n\n")
    exec { "build couchdb":
        command => "git clone git://github.com/iriscouch/build-couchdb && cd build-couchdb/ && git submodule init && git submodule update && rake",
        path    => [ "/usr/local/bin/", "/usr/local/sbin/", "/bin/", "/usr/bin/", "/usr/sbin/" ],
