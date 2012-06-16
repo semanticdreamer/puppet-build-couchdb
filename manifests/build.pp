@@ -12,7 +12,7 @@ class build-couchdb::build {
    if ! defined(Package['rake'])       { package { 'rake':       ensure => installed } }
 
    exec { "build couchdb":
-       command => "git clone git://github.com/iriscouch/build-couchdb && cd build-couchdb/ && git submodule init && git submodule update && rake",
+       command => "git clone git://github.com/iriscouch/build-couchdb && cd build-couchdb/ && git submodule init && git submodule update && sudo rake && sudo chown -R ${build-couchdb::build_user}:${build-couchdb::build_user} ${build-couchdb::install_dir}/build-couchdb",
        path    => [ "/usr/local/bin/", "/usr/local/sbin/", "/bin/", "/usr/bin/", "/usr/sbin/" ],
        cwd     => $build-couchdb::install_dir,
        creates => "${build-couchdb::install_dir}/build-couchdb/build/bin/couchdb",
